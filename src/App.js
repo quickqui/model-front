@@ -13,6 +13,8 @@ function App() {
       <Resource name="entities" show={UmlShow} />
       <Resource name="functions" show={UmlShow} />
       <Resource name="usecases" show={UmlShow} />
+      <Resource name="sources" show={UmlShow} />
+      <Resource name="models" show={UmlShow} />
     </Admin>
   );
 }
