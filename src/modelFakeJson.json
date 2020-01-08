@@ -1,0 +1,386 @@
+{
+  "type": "model",
+  "pageModel": {
+    "pages": [
+      {
+        "name": "dashboard",
+        "order": -10000,
+        "menuPath": "Dashboard",
+        "icon": "Dashboard",
+        "layout": { "gride": 3 },
+        "places": [
+          {
+            "function": "NotDoneCount",
+            "presentation": "normal",
+            "layout": { "size": 1 }
+          }
+        ],
+        "namespace": "dashboard.page.yml"
+      },
+      {
+        "name": "FinishIssue",
+        "layout": { "gride": "1" },
+        "places": [{ "function": "FinishIssue", "presentation": "normal" }]
+      },
+      {
+        "name": "NotDone",
+        "menuPath": "Issue/NotDone",
+        "icon": "RadioButtonUnchecked",
+        "layout": { "gride": "1" },
+        "places": [{ "function": "NotDone", "presentation": "normal" }]
+      },
+      {
+        "name": "Finished",
+        "menuPath": "Issue/Finished",
+        "icon": "CheckCircle",
+        "layout": { "gride": "1" },
+        "places": [{ "function": "Finished", "presentation": "normal" }]
+      },
+      {
+        "name": "NotDoneCount",
+        "layout": { "gride": "1" },
+        "places": [{ "function": "NotDoneCount", "presentation": "normal" }]
+      },
+      {
+        "name": "IssueCreate",
+        "menuPath": "Issue/Create",
+        "icon": "List",
+        "layout": { "gride": "1" },
+        "places": [{ "function": "IssueCreate", "presentation": "normal" }]
+      },
+      {
+        "name": "FunctionList",
+        "menuPath": "Function/List",
+        "icon": "List",
+        "layout": { "gride": "1" },
+        "places": [{ "function": "FunctionList", "presentation": "normal" }]
+      },
+      {
+        "name": "UserList",
+        "menuPath": "User/List",
+        "icon": "People",
+        "layout": { "gride": "1" },
+        "places": [{ "function": "UserList", "presentation": "normal" }]
+      }
+    ]
+  },
+  "functionModel": {
+    "functions": [
+      {
+        "name": "FinishIssue",
+        "abstract": false,
+        "annotations": {
+          "implementation": "provided/edit",
+          "buildingContext": {
+            "modelFile": {
+              "fileName": "finishIssue.functionModel.yml",
+              "path": "issue/finishIssue.functionModel.yml",
+              "repositoryBase": "/Users/nielinjie/Projects/QuickQui/linkToTestProjectDir/model"
+            },
+            "modelSource": {
+              "name": "model",
+              "description": "folder source - ../linkToTestProjectDir//model"
+            }
+          }
+        },
+        "namespace": "issue/finishIssue.functionModel.yml",
+        "resource": "Issue",
+        "extend": "functions/edit",
+        "command": { "prefill": { "done": true } }
+      },
+      {
+        "name": "NotDone",
+        "abstract": false,
+        "links": [
+          { "label": "FinishIssue", "type": "entity", "page": "FinishIssue" }
+        ],
+        "annotations": {
+          "implementation": "provided/list",
+          "buildingContext": {
+            "modelFile": {
+              "fileName": "issues.functionModel.yml",
+              "path": "issue/issues.functionModel.yml",
+              "repositoryBase": "/Users/nielinjie/Projects/QuickQui/linkToTestProjectDir/model"
+            },
+            "modelSource": {
+              "name": "model",
+              "description": "folder source - ../linkToTestProjectDir//model"
+            }
+          }
+        },
+        "namespace": "issue/issues.functionModel.yml",
+        "extend": "functions/list",
+        "entry": {
+          "menuPath": "Issue/NotDone",
+          "icon": "RadioButtonUnchecked"
+        },
+        "resource": "Issue",
+        "query": {
+          "filter": { "done": false },
+          "sort": { "createdAt": "DESC" }
+        }
+      },
+      {
+        "name": "Finished",
+        "abstract": false,
+        "links": [],
+        "annotations": {
+          "implementation": "provided/list",
+          "buildingContext": {
+            "modelFile": {
+              "fileName": "issues.functionModel.yml",
+              "path": "issue/issues.functionModel.yml",
+              "repositoryBase": "/Users/nielinjie/Projects/QuickQui/linkToTestProjectDir/model"
+            },
+            "modelSource": {
+              "name": "model",
+              "description": "folder source - ../linkToTestProjectDir//model"
+            }
+          }
+        },
+        "namespace": "issue/issues.functionModel.yml",
+        "entry": { "menuPath": "Issue/Finished", "icon": "CheckCircle" },
+        "resource": "Issue",
+        "extend": "functions/list",
+        "query": { "filter": { "done": true }, "sort": { "createdAt": "DESC" } }
+      },
+      {
+        "name": "NotDoneCount",
+        "abstract": false,
+        "annotations": {
+          "implementation": "provided/iconCard",
+          "buildingContext": {
+            "modelFile": {
+              "fileName": "issues.functionModel.yml",
+              "path": "issue/issues.functionModel.yml",
+              "repositoryBase": "/Users/nielinjie/Projects/QuickQui/linkToTestProjectDir/model"
+            },
+            "modelSource": {
+              "name": "model",
+              "description": "folder source - ../linkToTestProjectDir//model"
+            }
+          }
+        },
+        "namespace": "issue/issues.functionModel.yml",
+        "parameters": { "icon": "CheckCircle" },
+        "resource": "Issue",
+        "extend": "functions/iconCard",
+        "query": { "filter": { "done": false } }
+      },
+      {
+        "name": "IssueCreate",
+        "abstract": false,
+        "annotations": {
+          "implementation": "provided/create",
+          "buildingContext": {
+            "modelFile": {
+              "fileName": "issues.functionModel.yml",
+              "path": "issue/issues.functionModel.yml",
+              "repositoryBase": "/Users/nielinjie/Projects/QuickQui/linkToTestProjectDir/model"
+            },
+            "modelSource": {
+              "name": "model",
+              "description": "folder source - ../linkToTestProjectDir//model"
+            }
+          }
+        },
+        "namespace": "issue/issues.functionModel.yml",
+        "resource": "Issue",
+        "extend": "functions/create",
+        "entry": { "menuPath": "Issue/Create", "icon": "List" },
+        "command": { "prefill": { "done": false } }
+      },
+      {
+        "name": "FunctionList",
+        "abstract": false,
+        "links": [],
+        "annotations": {
+          "implementation": "provided/list",
+          "buildingContext": {
+            "modelFile": {
+              "fileName": "function.functions.yml",
+              "path": "issue/function.functions.yml",
+              "repositoryBase": "/Users/nielinjie/Projects/QuickQui/linkToTestProjectDir/model"
+            },
+            "modelSource": {
+              "name": "model",
+              "description": "folder source - ../linkToTestProjectDir//model"
+            }
+          }
+        },
+        "namespace": "issue/function.functions.yml",
+        "resource": "Function",
+        "extend": "functions/list",
+        "entry": { "menuPath": "Function/List", "icon": "List" }
+      },
+      {
+        "name": "UserList",
+        "abstract": false,
+        "links": [],
+        "annotations": {
+          "implementation": "provided/list",
+          "buildingContext": {
+            "modelFile": {
+              "fileName": "user.functions.yml",
+              "path": "user/user.functions.yml",
+              "repositoryBase": "/Users/nielinjie/Projects/QuickQui/linkToTestProjectDir/model"
+            },
+            "modelSource": {
+              "name": "model",
+              "description": "folder source - ../linkToTestProjectDir//model"
+            }
+          }
+        },
+        "namespace": "user/user.functions.yml",
+        "resource": "User",
+        "extend": "functions/list",
+        "entry": { "menuPath": "User/List", "icon": "People" }
+      }
+    ]
+  },
+  "domainModel": {
+    "entities": [
+      {
+        "name": "Issue",
+        "properties": [
+          { "name": "title", "type": "String", "constraints": ["required"] },
+          {
+            "name": "owner",
+            "constraints": ["required"],
+            "relation": { "to": "User", "n": "one" }
+          },
+          {
+            "name": "done",
+            "type": "Boolean",
+            "constraints": ["required"],
+            "default": false
+          },
+          {
+            "name": "function",
+            "constraints": ["required"],
+            "relation": { "to": "Function", "n": "one" }
+          },
+          { "name": "deadline", "type": "DateTime" },
+          { "name": "id", "type": "ID", "constraints": ["required"] }
+        ],
+        "namespace": "issue/function.domainModel.yml",
+        "annotations": { "brief": "title" }
+      },
+      {
+        "name": "Function",
+        "properties": [
+          { "name": "group", "type": "String", "constraints": ["required"] },
+          { "name": "name", "type": "String", "constraints": ["required"] },
+          { "name": "content", "type": "String", "constraints": ["required"] },
+          { "name": "owner", "relation": { "to": "User", "n": "one" } },
+          { "name": "id", "type": "ID", "constraints": ["required"] }
+        ],
+        "namespace": "issue/function.domainModel.yml",
+        "annotations": { "brief": "name" }
+      },
+      {
+        "name": "User",
+        "properties": [
+          { "name": "name", "type": "string", "constraints": ["required"] },
+          {
+            "name": "email",
+            "type": "string",
+            "constraints": ["required", "unique", "email"]
+          },
+          { "name": "password", "type": "string", "constraints": ["required"] },
+          { "name": "roles", "relation": { "to": "Role", "n": "many" } },
+          { "name": "profile", "relation": { "to": "Profile", "n": "one" } },
+          { "name": "id", "type": "ID", "constraints": ["required"] }
+        ],
+        "namespace": "user/user.domainModel.yml",
+        "annotations": { "brief": "name" }
+      },
+      {
+        "name": "Role",
+        "properties": [
+          { "name": "name", "type": "string", "constraints": ["required"] },
+          { "name": "id", "type": "ID", "constraints": ["required"] }
+        ],
+        "namespace": "user/user.domainModel.yml",
+        "annotations": { "brief": "name" }
+      },
+      {
+        "name": "Profile",
+        "properties": [
+          { "name": "description", "type": "string" },
+          { "name": "code", "type": "String" },
+          { "name": "id", "type": "ID", "constraints": ["required"] }
+        ],
+        "namespace": "user/user.domainModel.yml",
+        "annotations": { "brief": "description" }
+      }
+    ],
+    "enums": []
+  },
+  "exchangeModel": {
+    "exchanges": [
+      {
+        "name": "FunctionsFake",
+        "resources": ["Function", "Issue"],
+        "from": "fake",
+        "to": "back",
+        "protocol": "dp",
+        "parameters": { "fakeData": "resolve:functionFake.yml" },
+        "namespace": "issue/issue.exchange.yml",
+        "annotations": {
+          "buildingContext": {
+            "modelFile": {
+              "fileName": "issue.exchange.yml",
+              "path": "issue/issue.exchange.yml",
+              "repositoryBase": "/Users/nielinjie/Projects/QuickQui/linkToTestProjectDir/model"
+            },
+            "modelSource": {
+              "name": "model",
+              "description": "folder source - ../linkToTestProjectDir//model"
+            }
+          }
+        }
+      },
+      {
+        "name": "UserFake",
+        "resources": ["User", "Profile"],
+        "from": "fake",
+        "to": "back",
+        "protocol": "dp",
+        "parameters": {
+          "fakeData": {
+            "User": [{ "id": "1", "name": "ada", "profile.id": "1" }],
+            "Profile": [
+              { "id": "1", "code": "Profile1", "description": "I am user 1" }
+            ]
+          }
+        },
+        "namespace": "user/user.exchange.yml",
+        "annotations": {
+          "buildingContext": {
+            "modelFile": {
+              "fileName": "user.exchange.yml",
+              "path": "user/user.exchange.yml",
+              "repositoryBase": "/Users/nielinjie/Projects/QuickQui/linkToTestProjectDir/model"
+            },
+            "modelSource": {
+              "name": "model",
+              "description": "folder source - ../linkToTestProjectDir//model"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "presentationModel": {
+    "presentations": [
+      {
+        "name": "default",
+        "propertyRules": [
+          { "property": "id", "rules": ["disabled"], "order": -10000 }
+        ],
+        "namespace": "presentation/default.presentationModel.yml"
+      }
+    ]
+  }
+}

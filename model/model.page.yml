@@ -1,0 +1,11 @@
+pages:
+  - name: modelShowPage
+    menuPath: Model
+    layout: 
+      grid: 1
+    places:
+    #TODO 是否使用ref？
+      - function: ModelView
+        presentation: modelShow
+        layout:
+          size: 1

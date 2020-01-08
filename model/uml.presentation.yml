@@ -1,0 +1,5 @@
+presentations: 
+  - name: withSvg
+    propertyRules:
+      - property: svg
+        rules: ['resolve:view/SvgField']

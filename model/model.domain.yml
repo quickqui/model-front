@@ -1,0 +1,7 @@
+entities:
+  - name: Model
+    properties:
+      - name: json
+        type: string
+      - name: description
+        type: string

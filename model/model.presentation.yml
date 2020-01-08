@@ -1,0 +1,13 @@
+presentations:
+  - name: modelList
+    propertyRules:
+      - property: json
+        rules: [hidden]
+      - property: id
+        #TODO 避免这个空的rules
+        rules: []
+        order: -10000
+  - name: modelShow
+    propertyRules:
+      - property: json
+        rules: ["resolve:view/JsonField"]

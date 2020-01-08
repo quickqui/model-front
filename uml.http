@@ -1,0 +1,12 @@
+###
+
+POST http://localhost:4000/dataProvider HTTP/1.1
+content-type: application/json
+
+{
+    "type":"GET_ONE",
+    "resource":"Uml",
+    "params":{
+        "id": "default"
+    }
+}

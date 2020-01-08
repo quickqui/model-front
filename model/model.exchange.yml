@@ -1,0 +1,21 @@
+exchanges:
+  - name: inputModel
+    resources: [Model,ModelSource]
+    # from: fake
+    # to: back
+    # protocol: dp
+    # parameters:
+    #   fakeData: 'resolve:modelFake'
+    # from: external
+    # to: back
+    # protocol: rest
+    # parameters:
+    #   url: "http://localhost:1112"
+    #   resourceMap:
+    #     Model: models
+    from: external
+    to: back
+    extension: 'resolve:dp/ModelDP'
+    protocol: rest
+    parameters:
+      url: "http://localhost:1112"

@@ -1,0 +1,28 @@
+pages:
+  - name: DomainUml
+    menuPath: UML/Domain
+    layout: 
+      grid: 1
+    places:
+      - function: DomainUml
+        layout: 
+          size: 1
+        presentation: withSvg
+  - name: FunctionUml
+    menuPath: UML/Function
+    layout: 
+      grid: 1
+    places:
+      - function: FunctionUml
+        layout: 
+          size: 1
+        presentation: withSvg
+  - name: SourceUml
+    menuPath: Sources
+    layout: 
+      grid: 1
+    places:
+      - function: SourceUml
+        layout: 
+          size: 1
+        presentation: withSvg

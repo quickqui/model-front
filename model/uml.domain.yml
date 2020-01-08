@@ -1,0 +1,9 @@
+entities:
+  - name: Uml
+    properties:
+      - name: name
+        type: string
+      - name: svg
+        type: string
+      - name: modelName
+        type: string
