@@ -1,6 +1,6 @@
 exchanges:
   - name: inputModel
-    resources: [Model,ModelSource]
+    resources: [Model,ModelSource,Log,Refresh]
     # from: fake
     # to: back
     # protocol: dp

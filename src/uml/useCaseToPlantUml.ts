@@ -1,3 +1,4 @@
+//TODO user/role没有包含在model-defines里面，所以uescase不是最底层的model，所以这个图在这里是否合适？
 export function useCaseToPlantUml(functionModel: any): string| undefined {
     const uml = functionModel.functions.map((fun) => {
         return (fun.roles || []).map((role) => {

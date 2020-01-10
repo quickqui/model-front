@@ -4,3 +4,9 @@ functions:
     extend: functions/show
     parameters:
       id: default
+  - name: ModelLogsList
+    resource: Log
+    extend: functions/list
+  - name: Refresh
+    resource: Refresh
+    extend: functions/command

@@ -8,7 +8,8 @@ import {
   forResourceAndFetchTypeOneParam,
   GET_LIST,
   GetListResult,
-  w
+  w,
+  CREATE
 } from "@quick-qui/data-provider";
 import _ from "lodash";
 import { ModelSource } from "../uml/ModelSource";
@@ -39,12 +40,42 @@ const dpSource: DataProvider = forResourceAndFetchTypeOneParam(
     return rest(GET_LIST, "models/default/modelSources", params);
   }
 );
+const logsDp: DataProvider = forResourceAndFetchTypeOneParam(
+  "Log",
+  GET_LIST,
+  params => {
+    return rest(GET_LIST, "models/default/logs", params);
+  }
+);
+const refreshDp: DataProvider = forResourceAndFetchTypeOneParam(
+  "Refresh",
+  CREATE,
+  params => {
+    return rest(
+      CREATE,
+      "models/default/refresh",
+      _.extend({}, params, { data: {} })
+    ).then(r => {
+      return { data: _.extend({}, r.data, { id: _.uniqueId() }) };
+    });
+  }
+);
 export interface Model {
   id: string;
   json: string;
   original: any;
 }
 
+export interface Log {
+  id: string;
+  level: string;
+  message: string;
+  category: string;
+  context: string;
+}
+
 export default w(dp)
   .chain(dpSource)
+  .chain(logsDp)
+  .chain(refreshDp)
   .value();

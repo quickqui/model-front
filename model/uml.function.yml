@@ -9,6 +9,16 @@ functions:
     extend: "functions/show"
     parameters:
       id: 'function'
+  - name: PageUml
+    resource: Uml 
+    extend: "functions/show"
+    parameters:
+      id: 'page'
+  - name: ExchangeUml
+    resource: Uml
+    extend: "functions/show"
+    parameters:
+      id: 'exchange'
   - name: SourceUml
     resource: Uml 
     extend: "functions/show"

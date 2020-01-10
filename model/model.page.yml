@@ -1,11 +1,18 @@
+#TODO page model的配置有点太繁琐了，很多时候都是单个function。layout， places/layout都可以省略掉。
 pages:
   - name: modelShowPage
     menuPath: Model
-    layout: 
-      grid: 1
+    icon: AccountTree
     places:
-    #TODO 是否使用ref？
       - function: ModelView
         presentation: modelShow
-        layout:
-          size: 1
+  - name: modelLogsPage
+    menuPath: Logs
+    icon: ViewHeadline
+    places:
+      - function: ModelLogsList
+  - name: refreshPage
+    menuPath: Refresh
+    icon: Refresh
+    places:
+      - function: Refresh
