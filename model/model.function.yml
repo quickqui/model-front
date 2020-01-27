@@ -10,3 +10,25 @@ functions:
   - name: Refresh
     resource: Refresh
     extend: functions/command
+  - name: Entities
+    resource: Entity
+    extend: functions/iconCard
+    annotations:
+      page:
+        menuPath: Model/Entity
+        icon: List
+  - name: PartsByType
+    resource: PartsByType
+    # extend: functions/chartCard
+    annotations:
+      page:
+        menuPath: Model/PartsByType
+        icon: PieChart
+      #TODO 需要继续研究， 动态import如何直接import node_modules里面的模块。现在是报can not find module. 目前只有采用这个间接的方式。可能跟webpack的机制有关。
+      # implementation: "resolve:@quick-qui/front-chart/dist/ChartCardView"
+      implementation: "resolve:view/Cv"
+    parameters:
+      chartType: Doughnut
+      sources:
+        - label: id
+          y: count
