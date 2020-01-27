@@ -15,15 +15,15 @@ export class UmlObject {
   constructor(
     public name: string,
     id: string | undefined,
-    public properties: StringKeyObject
+    public properties: StringKeyObject,
+    public color?: string
   ) {
     this.id = id ?? hashCode(name);
   }
   toPlantUml(): string {
-    return `object "${this.name}" as ${this.id} {
+    return `object "${this.name}" as ${this.id} ${this.color ?? ""} {
         ${_.map(this.properties, (value, key) => {
           return `
-
         ${key} = "${value}"`;
         })}
     }`;

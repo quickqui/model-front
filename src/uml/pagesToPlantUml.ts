@@ -5,17 +5,14 @@ import {
   hashCode,
   UmlElement
 } from "./PlantUml";
-import {
-  functions,
-  pages
-} from "@quick-qui/model-defines";
+import { functions, pages } from "@quick-qui/model-defines";
 
 export function pagesToPlantUml(model: any): string {
   const pageObjects = pages(model).map(
     page => new UmlObject(`pages/${page.name}`, undefined, {})
   );
   const functionObjects = functions(model).map(
-    fun => new UmlObject(`functions/${fun.name}`, undefined, {})
+    fun => new UmlObject(`functions/${fun.name}`, undefined, {}, "#LightBlue")
   );
 
   const relations = pages(model)
