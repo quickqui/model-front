@@ -1,7 +1,7 @@
 #TODO page model的配置有点太繁琐了，很多时候都是单个function。layout， places/layout都可以省略掉。
 pages:
   - name: modelShowPage
-    menuPath: Model
+    menuPath: Model/Main
     icon: AccountTree
     places:
       - function: ModelView

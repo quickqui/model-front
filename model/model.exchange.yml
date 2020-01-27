@@ -19,3 +19,9 @@ exchanges:
     protocol: rest
     parameters:
       url: "http://localhost:1112"
+  - name: modelDetails
+    resources: [Entity,PartsByType]
+    from: back
+    to: back
+    protocol: dp 
+    extension: 'resolve:dp/ModelDetailDP'
