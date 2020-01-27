@@ -1,18 +1,17 @@
 import {
   DataProvider,
   DataProviderParams,
-  forResourceAndFetchType,
   GET_ONE,
   GetOneResult,
   restDp,
   forResourceAndFetchTypeOneParam,
   GET_LIST,
-  GetListResult,
   w,
-  CREATE
+  CREATE,
+  createResult
 } from "@quick-qui/data-provider";
+import { request } from "@quick-qui/data-provider/dist/ext/Command";
 import _ from "lodash";
-import { ModelSource } from "../uml/ModelSource";
 
 //TODO 如何从exchange model将参数传进来？
 const rest: DataProvider = restDp("http://localhost:1112");
@@ -51,12 +50,8 @@ const refreshDp: DataProvider = forResourceAndFetchTypeOneParam(
   "Refresh",
   CREATE,
   params => {
-    return rest(
-      CREATE,
-      "models/default/refresh",
-      _.extend({}, params, { data: {} })
-    ).then(r => {
-      return { data: _.extend({}, r.data, { id: _.uniqueId() }) };
+    return rest(CREATE, "models/default/refresh", request({})).then(r => {
+      return createResult(r.data);
     });
   }
 );
