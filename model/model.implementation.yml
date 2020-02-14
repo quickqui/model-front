@@ -1,3 +1,24 @@
+env:
+  ENV: dev_local
 implementations:
   - name: back
-    injections: [dataProvider,env]
+    injections: [dataProvider, env]
+    runtime: command
+    parameters:
+      path: "../app-server"
+      command: "npm"
+      args: ["start"]
+  - name: front
+    # runtime: docker
+    # parameters:
+    #   image: 'quickqui/front:latest'
+    runtime: command
+    env:
+      #TODO Env.ts的东西可以搬到这里来。
+      REACT_APP_ENV: dev_local
+      REACT_APP_NO_CLEAR_CONSOLE: "true"
+    parameters:
+      #TODO path 不是一个理想的，依赖于环境。应该仅用于开发。
+      path: "../front"
+      command: "npm"
+      args: ["run-script", "start-without-clean"]

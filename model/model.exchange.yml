@@ -15,7 +15,8 @@ exchanges:
     #     Model: models
     from: external
     to: back
-    extension: 'resolve:dp/ModelDP'
+    annotations:
+      implementation: 'resolve:dp/ModelDP'
     protocol: rest
     parameters:
       url: "http://localhost:1112"
@@ -24,4 +25,5 @@ exchanges:
     from: back
     to: back
     protocol: dp 
-    extension: 'resolve:dp/ModelDetailDP'
+    annotations:
+      implementation: 'resolve:dp/ModelDetailDP'

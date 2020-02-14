@@ -1,7 +1,8 @@
 exchanges:
   - name: uml
     resources: [Uml]
-    extension: 'resolve:dp/UmlDataProvider'
+    annotations:
+      implementation: 'resolve:dp/UmlDataProvider'
     #NOTE 这是一个内部转换的data provider？
     #TODO 内部转换的dp是否时一个dp，是否进一步提升了dp的地位，是否合适？
     from: back
@@ -9,16 +10,16 @@ exchanges:
     protocol: dp
   # - name: umlRequest
   #   resource: [UmlRequest]
-  #   #extension: 'resolve:@quick-qiu/data-provider/RestDp'
   #   from: external
   #   to: back
   #   protocol: rest
   #   parameters:
   #     url: 'http://localhost:'
-  #NOTE 似乎plantuml外部服务不是一个标准的REST，所以需要一个extension，否则应该是一个没有extension的dp。大致如上。
+  #NOTE 似乎plantuml外部服务不是一个标准的REST，所以需要一个implementation，否则应该是一个没有implementation的dp。大致如上。
   - name: umlService
     resources: [UmlService]
-    extension: 'resolve:dp/UmlServiceDp'
+    annotations:
+      implementation: 'resolve:dp/UmlServiceDp'
     from: external
     to: back
     protocol: dp
