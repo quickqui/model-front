@@ -16,7 +16,7 @@ const d: DataProvider = forResourceAndFetchTypeOneParam(
     const params = pa as CreateParams<UmlServiceCommand>;
     const env = implementationGlobal?.["env"]?.name;
     debug("modelEditor")(`env - ${env}`);
-    let umlServiceUrl: string = getUmlServiceUrl(env);
+    let umlServiceUrl: string = getUmlServiceUrl(env)!;
     const svg = axios
       .post(`${umlServiceUrl}/svg`, params.data.uml)
       .then(response => response.data);
@@ -35,14 +35,8 @@ export interface UmlServiceCommand {
 }
 
 export default d;
+
+//TODO 如何从implementation模型中来？
 function getUmlServiceUrl(env: any) {
-  let umlServiceUrl = "";
-  if (env === "dev_local") {
-    umlServiceUrl = "http://localhost:1608";
-  } else if (env === "dev_docker") {
-    umlServiceUrl = "http://plantUmlService:1608";
-  } else {
-    throw new Error("does not know env");
-  }
-  return umlServiceUrl;
+  return process.env.UML_SERVICE_URL  //?? "http://localhost:1608";
 }
