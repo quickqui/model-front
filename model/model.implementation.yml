@@ -3,17 +3,20 @@ implementations:
     extend: "implementations/default-back-dev"
     env:
       PORT: 4001
-      MODEL_URL: http://localhost:1111
-      # EXTEND_DIR: '../../model-front'
-      EXTEND_PATH: '../model-front' #TODO 相对路径的base path不对。现在用的是相对于package.json的目录。
-      UML_SERVICE_URL: 'http://localhost:1608'
+      UML_SERVICE_URL: "http://localhost:1608"
   - name: web-front
     env:
       PORT: 3001
       APP_SERVER_URL: http://localhost:4001
-      REACT_APP_APP_SERVER_URL: http://localhost:4001
-      MODEL_URL: http://localhost:1111
-      REACT_APP_MODEL_URL: http://localhost:1111
-      EXTEND_PATH: '../model-front'
-      REACT_APP_EXTEND_PATH: '../model-front'
     extend: "implementations/default-web-front-dev"
+  - name: uml-service
+    runtime: outer
+  - name: model-service
+    runtime: outer
+  - name: dev-launcher
+    runtime: launcher
+    env:
+      EXTEND_PATH: "../model-front"
+    parameters:
+      launch: [back, web-front]
+      type: raw

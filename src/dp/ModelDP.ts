@@ -8,13 +8,21 @@ import {
   GET_LIST,
   w,
   CREATE,
-  createResult
+  createResult,localSFP,
+  withDynamicData
 } from "@quick-qui/data-provider";
 import { request } from "@quick-qui/data-provider/dist/ext/Command";
 import _ from "lodash";
+import {
+  DataProviderResult,
+  fake
+} from "@quick-qui/data-provider/dist/dataProvider/DataProviders";
 
-//TODO 如何从exchange model将参数传进来？
+//FIXME 如何从exchange model将参数传进来？
 const rest: DataProvider = restDp("http://localhost:1112");
+//NOTE Sort, filter and pagination
+
+
 
 const dp: DataProvider = forResourceAndFetchTypeOneParam(
   "Model",
@@ -43,7 +51,7 @@ const logsDp: DataProvider = forResourceAndFetchTypeOneParam(
   "Log",
   GET_LIST,
   params => {
-    return rest(GET_LIST, "models/default/logs", params);
+    return localSFP(rest)(GET_LIST, "models/default/logs", params);
   }
 );
 const refreshDp: DataProvider = forResourceAndFetchTypeOneParam(

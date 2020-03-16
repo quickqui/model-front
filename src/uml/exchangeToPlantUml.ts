@@ -1,7 +1,7 @@
 import { exchanges } from "@quick-qui/model-defines";
 import _ from "lodash";
-import { Model } from "../dp/ModelDP";
 import { UmlObject, hashCode, UmlRelationship, UmlElement, UmlDiagram } from "./PlantUml";
+import { Model } from '@quick-qui/model-core';
 
 export function exchangeToPlantUml(model: Model):string{
     const ends = exchanges(model).map(exchange => [exchange.to, exchange.from]).flat();

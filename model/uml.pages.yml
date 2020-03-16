@@ -19,6 +19,11 @@ pages:
     places:
       - function: ExchangeUml
         presentation: withSvg
+  - name: ImplementationUml
+    menuPath: UML/Implementation
+    places:
+      - function: ImplementationUml
+        presentation: withSvg
   - name: SourceUml
     menuPath: Sources
     places:

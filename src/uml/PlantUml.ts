@@ -16,12 +16,15 @@ export class UmlObject {
     public name: string,
     id: string | undefined,
     public properties: StringKeyObject,
+    public stereotypes?: string,
     public color?: string
   ) {
     this.id = id ?? hashCode(name);
   }
   toPlantUml(): string {
-    return `object "${this.name}" as ${this.id} ${this.color ?? ""} {
+    return `object "${this.name}" as ${this.id} ${
+      this.stereotypes ? "<<" + this.stereotypes + ">>" : ""
+    } ${this.color ?? ""} {
         ${_.map(this.properties, (value, key) => {
           return `
         ${key} = "${value}"`;
@@ -49,9 +52,20 @@ export class UmlClass {
   }
 }
 export class UmlRelationship {
-  constructor(public from: string, public to: string, public label: string) {}
+  constructor(
+    public from: string,
+    public to: string,
+    public label: string,
+    public type: string = "ref"
+  ) {}
+
   toPlantUml(): string {
-    return `"${this.from}" --> "${this.to}" : ${this.label} `;
+    const arrows = {
+      extend: "--|>",
+      ref: "-->"
+    };
+    const arrow = arrows[this.type ?? "ref"];
+    return `"${this.from}" ${arrow} "${this.to}" : ${this.label} `;
   }
 }
 export type UmlElement = UmlObject | UmlClass | UmlRelationship;

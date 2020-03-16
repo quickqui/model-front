@@ -12,7 +12,7 @@ export function pagesToPlantUml(model: any): string {
     page => new UmlObject(`pages/${page.name}`, undefined, {})
   );
   const functionObjects = functions(model).map(
-    fun => new UmlObject(`functions/${fun.name}`, undefined, {}, "#LightBlue")
+    fun => new UmlObject(`functions/${fun.name}`, undefined, {}, undefined,"#LightBlue")
   );
 
   const relations = pages(model)

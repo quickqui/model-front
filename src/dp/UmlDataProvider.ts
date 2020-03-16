@@ -22,13 +22,14 @@ import { ModelSource } from "../uml/ModelSource";
 import { sourceToPlantUml } from "../uml/sourceToPlantUml";
 import { pagesToPlantUml } from "../uml/pagesToPlantUml";
 import { exchangeToPlantUml } from "../uml/exchangeToPlantUml";
+import { implementationToPlantUml } from "../uml/implementationToPlantUml";
 const dp: DataProvider = forResourceAndFetchTypeOneParam(
   "Uml",
   GET_ONE,
   async (params: DataProviderParams<Uml>): Promise<GetOneResult<Uml>> => {
     const existingDp: DataProvider = implementationGlobal?.["dataProvider"]!;
 
-    const umlType = (params as GetOneParams).id; //TODO 这里借用了id，因为function模型传参数只有id。
+    const umlType = (params as GetOneParams).id; //NOTE 这里借用了id，因为function模型传参数只有id。
 
     const uml = await (async () => {
       const model = (await existingDp(GET_ONE, "Model", {
@@ -55,6 +56,8 @@ const dp: DataProvider = forResourceAndFetchTypeOneParam(
           return pagesToPlantUml(model.data.original);
         case "exchange":
           return exchangeToPlantUml(model.data.original);
+        case 'implementation':
+          return implementationToPlantUml(model.data.original)
         default:
           throw new Error("not implemented");
       }
