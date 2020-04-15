@@ -15,7 +15,7 @@
   "dependencies": {
     "@quick-qui/data-provider": "^1.3.0",
     "@quick-qui/front-chart": "^1.0.0",
-    "@quick-qui/model-defines": "^2.4.3",
+    "@quick-qui/model-defines": "^2.4.4",
     "@quick-qui/models": "^1.0.0",
     "@types/axios": "^0.14.0",
     "@types/camelcase": "^5.2.0",
