@@ -1,22 +1,71 @@
 implementations:
+  # - name: back
+  #   extend: "implementations/default-back-dev"
+  #   env:
+  #     PORT: 4001
+  #     UML_SERVICE_URL: "http://localhost:1608"
+  # - name: web-front
+  #   env:
+  #     PORT: 3001
+  #     APP_SERVER_URL: http://localhost:4001
+  #   extend: "implementations/default-web-front-dev"
+  # - name: uml-service
+  #   runtime:
+  # - name: model-service
+  #   runtime: outer
+  # - name: dev-launcher
+  #   runtime: launcher
+  #   env:
+  #     EXTEND_PATH: "../model-front"
+  #   parameters:
+  #     launch: [back, web-front]
+  #     type: raw
   - name: back
-    extend: "implementations/default-back-dev"
+    runtime: docker
+    injections: [dataProvider, env]
     env:
       PORT: 4001
-      UML_SERVICE_URL: "http://localhost:1608"
+      UML_SERVICE_URL: "http://docker.for.mac.host.internal:1608"
+      MODEL_SERVICE_URL: 'http://docker.for.mac.host.internal:1112'
+      MODEL_URL: "http://model-server:1111"
+      # MODEL_URL: "http://docker.for.mac.host.internal:1111"
+      MODEL_PATH: "/modelProjectDir"
+    parameters:
+      image: nielinjie/quickqui-app-server:latest
+      volumes:
+        - ../model-front/:/modelProjectDir
+      dependsOn:
+        - model-server
+      links:
+        - model-server
   - name: web-front
+    runtime: docker
+    injections: [dataProvider, env]
     env:
       PORT: 3001
-      APP_SERVER_URL: http://localhost:4001
-    extend: "implementations/default-web-front-dev"
-  - name: uml-service
-    runtime: outer
-  - name: model-service
-    runtime: outer
-  - name: dev-launcher
+      APP_SERVER_URL: http://back:4001
+      MODEL_URL: "http://model-server:1111"
+      # MODEL_URL: "http://docker.for.mac.host.internal:1111"
+      MODEL_PATH: "/extendDir"
+      EXTEND_PATH: '/extendDir'
+    parameters:
+      image: nielinjie/quickqui-front:latest
+      volumes:
+        - ../model-front/:/extendDir
+      ports:
+        - 3001:3001
+      dependsOn:
+        - model-server
+      links:
+        - model-server
+  - name: docker-launcher
     runtime: launcher
     env:
       EXTEND_PATH: "../model-front"
     parameters:
       launch: [back, web-front]
-      type: raw
+      type: docker
+  - name: uml-service
+    runtime: outer
+  - name: model-service
+    runtime: outer

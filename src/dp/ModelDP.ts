@@ -17,9 +17,16 @@ import {
   DataProviderResult,
   fake
 } from "@quick-qui/data-provider/dist/dataProvider/DataProviders";
+import { runtimeGlobal } from "@quick-qui/model-defines";
+
+console.log(process.env.MODEL_SERVICE_URL)
 
 //FIXME 如何从exchange model将参数传进来？
-const rest: DataProvider = restDp("http://localhost:1112");
+const rest: DataProvider = restDp(
+  //TODO implementationGlobal 的方式貌似没成功。
+  // runtimeGlobal?.["env"]?.["MODEL_SERVICE_URL"] ?? "http://localhost:1112"
+  process.env.MODEL_SERVICE_URL
+);
 //NOTE Sort, filter and pagination
 
 
