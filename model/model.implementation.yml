@@ -30,7 +30,6 @@ implementations:
       MODEL_URL: "http://model-server:1111"
       # MODEL_URL: "http://docker.for.mac.host.internal:1111"
       MODEL_PATH: "/modelProjectDir"
-      EXTEND_PATH: '/modelProjectDir'
     parameters:
       image: nielinjie/quickqui-app-server:latest
       volumes:
@@ -48,7 +47,6 @@ implementations:
       MODEL_URL: "http://model-server:1111"
       # MODEL_URL: "http://docker.for.mac.host.internal:1111"
       MODEL_PATH: "/extendDir"
-      EXTEND_PATH: '/extendDir'
       BROWSER: 'none'
     parameters:
       image: nielinjie/quickqui-front:latest
@@ -63,8 +61,6 @@ implementations:
       stdin_open: true
   - name: docker-launcher
     runtime: launcher
-    env:
-      EXTEND_PATH: "../model-front"
     parameters:
       launch: [back, web-front]
       type: docker
