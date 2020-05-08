@@ -1,0 +1,25 @@
+# 在开发app的时候使用？
+# 通过npm安装实现？
+#TODO 考虑开发组件的时候一般用什么deploy/implementation model
+#TODO building和launcher要支持watching
+implementations:
+  - name: dev-quick-back
+    extend: "implementations/default-back-dev"
+    env:
+      PORT: 4001
+      UML_SERVICE_URL: "http://localhost:1608"
+      MODEL_SERVICE_URL: "http://localhost:1112"
+  - name: dev-quick-web-front
+    env:
+      PORT: 3001
+      APP_SERVER_URL: http://localhost:4001
+    extend: "implementations/default-web-front-dev"
+  - name: dev-quick-launcher
+    runtime: launcher
+    env:
+      MODEL_PATH: "../model-front"
+      MODEL_URL: "http://localhost:1111"
+    parameters:
+      launch: [dev-quick-back, dev-quick-web-front]
+      type: raw
+      model_server_path: '../model-server'
