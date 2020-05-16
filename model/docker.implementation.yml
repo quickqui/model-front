@@ -7,7 +7,6 @@ implementations:
       UML_SERVICE_URL: "http://docker.for.mac.host.internal:1608"
       MODEL_SERVICE_URL: 'http://docker.for.mac.host.internal:1112'
       MODEL_URL: "http://model-server:1111"
-      # MODEL_URL: "http://docker.for.mac.host.internal:1111"
       MODEL_PATH: "/modelProjectDir"
     parameters:
       image: nielinjie/quickqui-app-server:latest

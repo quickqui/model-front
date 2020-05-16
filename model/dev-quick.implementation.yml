@@ -1,20 +1,26 @@
-# 在开发Quick-qui的时候使用？
+#NOTE 在开发Quick-qui的时候使用。
 implementations:
-# TODO base model还没准备好。
-  # - name: dev-quick-back
-  #   extend: "implementations/default-back-dev"
-  #   env:
-  #     PORT: 4001
-  #     UML_SERVICE_URL: "http://localhost:1608"
-  # - name: dev-quick-web-front
-  #   env:
-  #     PORT: 3001
-  #     APP_SERVER_URL: http://localhost:4001
-  #   extend: "implementations/default-web-front-dev"
-  # - name: dev-quick-launcher
-  #   runtime: launcher
-  #   env:
-  #     MODEL_PATH: "../model-front"
-  #   parameters:
-  #     launch: [dev-quick-back, dev-quick-web-front]
-  #     type: raw
+  - name: dev-quick-back
+    extend: "implementations/default-back-dev"
+    env:
+      PORT: 4001
+      UML_SERVICE_URL: "http://localhost:1608"
+      MODEL_SERVICE_URL: "http://localhost:1112"
+  - name: dev-quick-web-front
+    env:
+      PORT: 3001
+      APP_SERVER_URL: http://localhost:4001
+    extend: "implementations/default-web-front-dev"
+  - name: default-raw-launcher
+    runtime: launcher
+    abstract: true
+    env:
+      MODEL_PATH: "../model-front"
+      MODEL_URL: "http://localhost:1111"
+    parameters:
+      type: raw
+      model_server_path: "../model-server"
+  - name: dev-quick-launcher
+    extend: "implementations/default-raw-launcher"
+    parameters:
+      launch: [dev-quick-back, dev-quick-web-front]
