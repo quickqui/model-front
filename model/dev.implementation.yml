@@ -19,7 +19,6 @@ implementations:
   - name: npm-launcher
     runtime: launcher
     env:
-      MODEL_PATH: "../model-front"
       MODEL_URL: "http://localhost:1111"
     parameters:
       launch: [npm-back, npm-web-front]
