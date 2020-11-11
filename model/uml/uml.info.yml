@@ -1,0 +1,17 @@
+infos:
+  - name: uml
+    resources: [Uml]
+    scope: domain
+    type: resource
+    annotations:
+      implementation:
+        at: back
+        source: "resolve:dp/UmlDataProvider"
+  - name: umlService
+    resources: [UmlService]
+    scope: domain
+    type: resource
+    annotations:
+      implementation:
+        at: back
+        source: "resolve:dp/UmlServiceDp"

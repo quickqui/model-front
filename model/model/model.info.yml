@@ -1,0 +1,17 @@
+infos:
+  - name: inputModel
+    resources: [Model,ModelSource,Log,Refresh]
+    scope: domain
+    type: resource
+    annotations: 
+      implementation: 
+        at: front
+        source: 'resolve:dp/ModelDP'
+  - name: modelDetails
+    resources: [Entity,PartsByType]
+    scope: domain
+    type: resource
+    annotations:
+      implementation:
+        at: front
+        source: 'resolve:dp/ModelDetailDP'
