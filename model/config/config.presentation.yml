@@ -1,0 +1,7 @@
+presentations:
+  - name: config
+    propertyRules:
+      - property: modelPath
+        rules: [disabled]
+      - property: id
+        rules: [hidden]

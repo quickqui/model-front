@@ -8,66 +8,82 @@ import {
   GET_LIST,
   w,
   CREATE,
-  createResult,localSFP,
-  withDynamicData
+  createResult,
+  localSFP,
+  withDynamicData,
 } from "@quick-qui/data-provider";
-import { request } from "@quick-qui/data-provider/dist/ext/Command";
+import { request, response } from "@quick-qui/data-provider/dist/ext/Command";
 import _ from "lodash";
 import {
   DataProviderResult,
-  fake
+  fake,
 } from "@quick-qui/data-provider/dist/dataProvider/DataProviders";
-import { runtimeGlobal } from "@quick-qui/model-defines";
+import { runtimeGlobal, implementationGlobal } from "@quick-qui/model-defines";
+import axios from 'axios';
 
-console.log(process.env.MODEL_SERVICE_URL)
+
+
 
 //FIXME 如何从exchange model将参数传进来？
-const rest: DataProvider = restDp(
-  //TODO implementationGlobal 的方式貌似没成功。
-  // runtimeGlobal?.["env"]?.["MODEL_SERVICE_URL"] ?? "http://localhost:1112"
-  process.env.MODEL_SERVICE_URL
-);
+async function rest(): Promise<DataProvider> {
+  return restDp(await url());
+}
+
+async function url(): Promise<string> {
+  const existingDp: DataProvider = implementationGlobal?.["dataProvider"]!;
+  const configURL = (await existingDp(GET_ONE, "Config", { id: "_default" }))
+    .data?.["modelPath"];
+  console.log("configURL", configURL);
+
+  return configURL ?? process.env.MODEL_SERVICE_URL;
+}
 //NOTE Sort, filter and pagination
-
-
 
 const dp: DataProvider = forResourceAndFetchTypeOneParam(
   "Model",
   GET_ONE,
   (params: DataProviderParams<Model>) => {
-    return rest(GET_ONE, "models", params).then(response => {
-      return {
-        data: {
-          //FIXME id是写死的，没有传进来。
-          id: "default",
-          json: JSON.stringify(response.data),
-          original: response.data
-        }
-      } as GetOneResult<Model>;
-    });
+    return rest()
+      .then((dp) => dp(GET_ONE, "models", params))
+      .then((response) => {
+        return {
+          data: {
+            //FIXME id是写死的，没有传进来。
+            id: "default",
+            json: JSON.stringify(response.data),
+            original: response.data,
+          },
+        } as GetOneResult<Model>;
+      });
   }
 );
 const dpSource: DataProvider = forResourceAndFetchTypeOneParam(
   "ModelSource",
   GET_LIST,
-  params => {
-    return rest(GET_LIST, "models/default/modelSources", params);
+  (params) => {
+    return rest().then((dp) =>
+      dp(GET_LIST, "models/default/modelSources", params)
+    );
   }
 );
 const logsDp: DataProvider = forResourceAndFetchTypeOneParam(
   "Log",
   GET_LIST,
-  params => {
-    return localSFP(rest)(GET_LIST, "models/default/logs", params);
+  (params) => {
+    return rest().then((dp) =>
+      localSFP(dp)(GET_LIST, "models/default/logs", params)
+    );
   }
 );
 const refreshDp: DataProvider = forResourceAndFetchTypeOneParam(
   "Refresh",
   CREATE,
-  params => {
-    return rest(CREATE, "models/default/refresh", request({})).then(r => {
-      return createResult(r.data);
-    });
+  (params) => {
+    return rest()
+      .then((dp) => dp(CREATE, "models/default/refresh", request({})))
+      .then((r) => {
+        return createResult(r.data);
+      });
   }
 );
 export interface Model {
@@ -84,8 +100,4 @@ export interface Log {
   context: string;
 }
 
-export default w(dp)
-  .chain(dpSource)
-  .chain(logsDp)
-  .chain(refreshDp)
-  .value();
+export default w(dp).chain(dpSource).chain(logsDp).chain(refreshDp).value();

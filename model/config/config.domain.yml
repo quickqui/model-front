@@ -1,0 +1,7 @@
+entities:
+  - name: Config
+    properties:
+      - name: modelPath
+        type: string
+      - name: memo
+        type: string
