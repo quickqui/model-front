@@ -8,4 +8,9 @@ includes:
     resource: 
       type: npm
       module: "@quick-qui/models"
+      dir: "model" 
+  - protocol: library
+    resource: 
+      type: npm
+      module: "@quick-qui/implementation-model"
       dir: "model"

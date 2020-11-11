@@ -1,8 +1,6 @@
-#TODO 考虑开发组件的时候一般用什么deploy/implementation model
-#TODO building和launcher要支持watching
 implementations:
   - name: npm-back
-    extend: "implementations/default-back-dev"
+    extend: "implementations/back-npm"
     env:
       PORT: 4001
       UML_SERVICE_URL: "http://localhost:1608"
@@ -13,9 +11,9 @@ implementations:
     env:
       PORT: 3001
       APP_SERVER_URL: http://localhost:4001
-    extend: "implementations/default-web-front-dev"
+    extend: "implementations/web-front-npm"
     parameters:
-      packageName: "@quick-qui/front"
+      packageName: "@quick-qui/front3"
   - name: npm-launcher
     runtime: launcher
     env:
