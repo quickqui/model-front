@@ -5,7 +5,7 @@ infos:
     type: resource
     annotations:
       implementation:
-        at: back
+        at: front
         source: "resolve:dp/UmlDataProvider"
   - name: umlService
     resources: [UmlService]
@@ -13,5 +13,5 @@ infos:
     type: resource
     annotations:
       implementation:
-        at: back
+        at: front
         source: "resolve:dp/UmlServiceDp"
