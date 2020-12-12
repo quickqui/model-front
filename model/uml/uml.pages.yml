@@ -14,10 +14,10 @@ pages:
     places:
       - function: PageUml
         presentation: withSvg
-  - name: ExchangeUml
-    menuPath: UML/Exchange
+  - name: InfoUml
+    menuPath: UML/Info
     places:
-      - function: ExchangeUml
+      - function: InfoUml
         presentation: withSvg
   - name: ImplementationUml
     menuPath: UML/Implementation

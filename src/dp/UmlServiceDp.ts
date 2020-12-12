@@ -38,5 +38,6 @@ export default d;
 
 //TODO 如何从implementation模型中来？
 function getUmlServiceUrl(env: any) {
-  return process.env.UML_SERVICE_URL  //?? "http://localhost:1608";
+  // return process.env.UML_SERVICE_URL  //?? "http://localhost:1608";
+  return  "http://localhost:1608";
 }

@@ -11,7 +11,7 @@ import {
   CreateResult,
   GET_LIST,
   GetListResult,
-  GetListParams
+  GetListParams,
 } from "@quick-qui/data-provider";
 import { implementationGlobal } from "@quick-qui/model-defines";
 import { domainToPlantUml } from "../uml/domainToPlantUml";
@@ -21,8 +21,8 @@ import { functionsToPlantUml } from "../uml/functionsToPlantUml";
 import { ModelSource } from "../uml/ModelSource";
 import { sourceToPlantUml } from "../uml/sourceToPlantUml";
 import { pagesToPlantUml } from "../uml/pagesToPlantUml";
-import { exchangeToPlantUml } from "../uml/exchangeToPlantUml";
 import { implementationToPlantUml } from "../uml/implementationToPlantUml";
+import { infoToPlantUml } from "../uml/infoToPlantUml";
 const dp: DataProvider = forResourceAndFetchTypeOneParam(
   "Uml",
   GET_ONE,
@@ -33,7 +33,7 @@ const dp: DataProvider = forResourceAndFetchTypeOneParam(
 
     const uml = await (async () => {
       const model = (await existingDp(GET_ONE, "Model", {
-        id: "default"
+        id: "default",
       } as GetOneParams)) as GetOneResult<Model>;
       switch (umlType) {
         case "modelSource":
@@ -44,7 +44,7 @@ const dp: DataProvider = forResourceAndFetchTypeOneParam(
               id: "default",
               pagination: { page: 0, perPage: 100 },
               sort: { field: "id", order: "" },
-              filter: {}
+              filter: {},
             } as GetListParams
           )) as GetListResult<ModelSource>).data;
           return sourceToPlantUml(sources);
@@ -54,10 +54,10 @@ const dp: DataProvider = forResourceAndFetchTypeOneParam(
           return functionsToPlantUml(model.data.original);
         case "page":
           return pagesToPlantUml(model.data.original);
-        case "exchange":
-          return exchangeToPlantUml(model.data.original);
-        case 'implementation':
-          return implementationToPlantUml(model.data.original)
+        case "info":
+          return infoToPlantUml(model.data.original);
+        case "implementation":
+          return implementationToPlantUml(model.data.original);
         default:
           throw new Error("not implemented");
       }
@@ -68,8 +68,8 @@ const dp: DataProvider = forResourceAndFetchTypeOneParam(
         id: umlType,
         modelName: "default",
         name: umlType,
-        uml
-      }
+        uml,
+      },
     } as CreateParams<UmlServiceCommand>);
     return svg as GetOneResult<Uml>;
   }

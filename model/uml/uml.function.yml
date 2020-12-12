@@ -19,11 +19,11 @@ functions:
     extend: "functions/show"
     parameters:
       id: 'implementation'
-  - name: ExchangeUml
+  - name: InfoUml
     resource: Uml
     extend: "functions/show"
     parameters:
-      id: 'exchange'
+      id: 'info'
   - name: SourceUml
     resource: Uml 
     extend: "functions/show"
