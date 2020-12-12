@@ -3,12 +3,10 @@ infos:
     resources: ["Config"]
     scope: local
     type: resource
-    init:
+    default:
       Config:
         - id: _default
-          #TODO 实现变量求值
           modelPath: ${env.MODEL_PATH}
-          # memo需要每个字段都有。
           memo: "pass via env - MODEL_PATH, can not change while running"
     annotations:
       implementation:
