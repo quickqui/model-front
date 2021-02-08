@@ -8,7 +8,10 @@ import _ from "lodash";
 export function hashCode(name: string): string {
   return Base64.encodeURI(name);
 }
-
+export interface Style {
+  color?: string;
+  spot?: string;
+}
 export class UmlObject {
   type: string = "object";
   id: string;
@@ -17,14 +20,21 @@ export class UmlObject {
     id: string | undefined,
     public properties: StringKeyObject,
     public stereotypes?: string,
-    public color?: string
+    public style?: Style
   ) {
     this.id = id ?? hashCode(name);
   }
+  ss(): string {
+    return this.stereotypes || this.style?.spot
+      ? `<<${this.style?.spot ? `(${this.style?.spot})` : ""} ${
+          this.stereotypes ?? ""
+        }>>`
+      : "";
+  }
   toPlantUml(): string {
-    return `object "${this.name}" as ${this.id} ${
-      this.stereotypes ? "<<" + this.stereotypes + ">>" : ""
-    } ${this.color ?? ""} {
+    return `object "${this.name}" as ${this.id} ${this.ss()} ${
+      this.style?.color ?? ""
+    } {
         ${_.map(this.properties, (value, key) => {
           return `
         ${key} = "${value}"`;
@@ -38,48 +48,83 @@ export class UmlClass {
   constructor(
     public name: string,
     id: string | undefined,
-    public properties: StringKeyObject
+
+    public properties: StringKeyObject,
+    public nameSpace?: string[],
+    public stereotypes?: string,
+
+    public style?: Style
   ) {
     this.id = id ?? hashCode(name);
   }
+  ss(): string {
+    return this.stereotypes || this.style?.spot
+      ? `<<${this.style?.spot ? `(${this.style?.spot})` : ""} ${
+          this.stereotypes ?? ""
+        }>>`
+      : "";
+  }
   toPlantUml(): string {
-    return `class "${this.name}" as ${this.id} {
-         ${_.map(this.properties, (value, key) => {
-           return `
+    return `class "${this.name}" as ${this.id} ${this.ss()} ${
+      this.style?.color ?? ""
+    } {
+        ${_.map(this.properties, (value, key) => {
+          return `
         ${key} = "${value}"`;
-         })}
+        })}
     }`;
   }
 }
 export class UmlRelationship {
+  type= 'ref'
   constructor(
     public from: string,
     public to: string,
     public label: string,
-    public type: string = "ref"
+    public refType: string ="ref"
   ) {}
 
   toPlantUml(): string {
     const arrows = {
       extend: "--|>",
-      ref: "-->"
+      ref: "-->",
     };
-    const arrow = arrows[this.type ?? "ref"];
+    const arrow = arrows[this.refType ?? "ref"];
     return `"${this.from}" ${arrow} "${this.to}" : ${this.label} `;
   }
 }
 export type UmlElement = UmlObject | UmlClass | UmlRelationship;
 export class UmlDiagram {
   constructor(public elements: UmlElement[]) {}
+
   toPlantUml(): string {
-    return (
-      `@startuml\n\n` +
-      this.elements
-        .map(element => {
+    const [ref, other] = _(this.elements)
+      .partition((e) => e.type === "ref")
+      .value();
+    const packages = _(other)
+      .groupBy((e) => {
+        return ((e as any).nameSpace ?? []).join("/");
+      })
+      .value();
+    console.log(packages);
+    function packageToUml(packageName: string, elements: any[]): string {
+      const contents = elements
+        .map((element) => {
           return element.toPlantUml();
         })
-        .join("\n") +
-      `\n\n@enduml\n`
-    );
+        .join("\n");
+      if (packageName !== "")
+        return `package "${packageName}" {
+        ${contents}
+      }`;
+      else return contents;
+    }
+
+    return `@startuml
+      ${_(packages)
+        .map((value, key) => packageToUml(key, value))
+        .join("\n")}
+        ${ref.map((r) => r.toPlantUml()).join("\n")}
+      @enduml`;
   }
 }

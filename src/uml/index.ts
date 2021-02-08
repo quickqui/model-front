@@ -1,7 +1,22 @@
+import _ from "lodash";
 
-
-
-
+export function modelSpot(typeName: string) {
+  return {
+    spot: (
+      {
+        info: ["I", "#6699ff"],
+        page: ["P", "#9966ff"],
+        implementation: ["I", "#ff9966"],
+        entity: ["E", "#66ff99"],
+        function: ["F", "#6666ff"],
+      }[typeName] ?? ["U", "#666666"]
+    ).join(","),
+  };
+}
+export function nameSpace(nameS: string): string[] {
+  const parts = (nameS ?? "").split("/");
+  return _.initial(parts);
+}
 // app.get("/uml/sources/:id", async function(req, res, next) {
 //   try {
 //     const model = await modelManager.getSource();

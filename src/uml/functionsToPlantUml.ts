@@ -1,9 +1,11 @@
+import { modelSpot, nameSpace } from '.';
 import {
   UmlDiagram,
   UmlObject,
   UmlElement,
   hashCode,
-  UmlRelationship
+  UmlRelationship,
+  UmlClass
 } from "./PlantUml";
 import {
   functions,
@@ -13,12 +15,13 @@ import {
 
 export function functionsToPlantUml(model: any): string {
   const objs = functions(model).map(fun => {
-    return new UmlObject(
+    return new UmlClass(
       fun.name,
       undefined,
       {},
+      nameSpace(fun.namespace),
       fun.abstract ? "abstract" : undefined,
-      undefined
+      modelSpot('function')
     );
   });
   const extendRelations = functions(model)
