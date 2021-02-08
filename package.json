@@ -7,26 +7,31 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "nielinjie <nielinjie@outlook.com>",
-  "license": "ISC",
+  "license": "MIT",
   "files": [
     "dist",
     "model"
   ],
   "dependencies": {
-    "@quick-qui/data-provider": "^1.3.1",
+    "@quick-qui/data-provider": "^1.4.1",
     "@quick-qui/front-chart": "^0.1.2",
-    "@quick-qui/implementation-model": "^1.1.0",
-    "@quick-qui/model-defines": "^2.6.0",
+    "@quick-qui/implementation-model": "^1.3.0",
+    "@quick-qui/model-defines": "^2.7.2",
     "@quick-qui/models": "^1.0.0",
+    "@react-hook/window-size": "^3.0.7",
     "@types/axios": "^0.14.0",
     "@types/camelcase": "^5.2.0",
     "@types/debug": "^4.1.5",
     "@types/js-base64": "^2.3.2",
-    "axios": "^0.19.2",
+    "@types/plantuml-encoder": "^1.4.0",
+    "@types/react-svg-pan-zoom": "^3.3.1",
+    "axios": "^0.21.1",
     "camelcase": "^5.3.1",
-    "debug": "^4.1.1",
+    "debug": "^4.3.1",
     "js-base64": "^2.6.4",
-    "react-json-view": "^1.19.1",
+    "plantuml-encoder": "^1.4.0",
+    "react-json-view": "^1.20.4",
+    "react-svg-pan-zoom": "^3.10.0",
     "svg-inline-react": "^3.2.0"
   },
   "devDependencies": {
