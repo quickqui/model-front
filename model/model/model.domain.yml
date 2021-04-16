@@ -15,3 +15,11 @@ entities:
         type: string
       - name: context
         type: string
+  - name: ModelUnit
+    properties:
+      - name: name
+        type: string
+      - name: type
+        type: string
+      - name: json
+        type: string

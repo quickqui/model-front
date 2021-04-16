@@ -11,8 +11,27 @@ pages:
     icon: ViewHeadline
     places:
       - function: ModelLogsList
+  - name: ModelUnitListPage
+    menuPath: Model/UnitList
+    icon: ViewHeadline
+    places:
+      - function: ModelUnitList
+        presentation: ModelUnitList
+  - name: ModelUnitShowPage
+    places:
+      - function: ModelUnitShow
+        presentation: ModelUnitShow
   - name: refreshPage
     menuPath: Refresh
     icon: Refresh
     places:
       - function: Refresh
+  - name: ModelUnitLD
+    menuPath: Model/ListAndDetail
+    layout:
+      grid: 2
+    places:
+      - function: ModelUnitList
+        presentation: ModelUnitList
+      - function: ModelUnitShow
+        presentation: ModelUnitShow

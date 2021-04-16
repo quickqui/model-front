@@ -1,6 +1,5 @@
 import React from "react";
 import { useLayoutEffect, useRef } from "react";
-import InlineSVG from "svg-inline-react";
 import { UncontrolledReactSVGPanZoom } from "react-svg-pan-zoom";
 import { useWindowSize } from "@react-hook/window-size";
 

@@ -2,22 +2,11 @@ implementations:
   - name: npm-back
     extend: "implementations/back-npm"
     env:
-      PORT: 4001
       UML_SERVICE_URL: "http://localhost:1608"
       MODEL_SERVICE_URL: "http://localhost:1112"
-    parameters:
-      packageName: "@quick-qui/app-server"
   - name: npm-web-front
-    env:
-      PORT: 3001
-      APP_SERVER_URL: http://localhost:4001
     extend: "implementations/web-front-npm"
+  - name: model-front-npm-launcher
+    extend: "implementations/npm-launcher"
     parameters:
-      packageName: "@quick-qui/front3"
-  - name: npm-launcher
-    runtime: launcher
-    env:
-      MODEL_URL: "http://localhost:1111"
-    parameters:
-      launch: [npm-back, npm-web-front]
-      type: npm
+      launch: ["npm-back", "npm-web-front"]

@@ -17,7 +17,7 @@ export function pagesToPlantUml(model: any): string {
         hashCode(`pages/${page.name}`),
         {},
         nameSpace(page.namespace),
-        undefined,
+        page.annotations?.generated ?? false ? "generated" : undefined,
         modelSpot("page")
       )
   );

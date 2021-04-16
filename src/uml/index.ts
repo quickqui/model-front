@@ -87,7 +87,7 @@ export function nameSpace(nameS: string): string[] {
 //   try {
 //     const model = (await modelManager.getModel()) as any;
 //     if (model.functionModel) {
-//       const startUML = useCaseToPlantUml(model.functionModel);
+//       const startUML = useCaseToPlantUml(model.functionModel); ``
 //       const rep = await axios.post(plantUMLServiceUrl, startUML);
 //       res.status(200).json({ id: 1, source: rep.data });
 //     } else res.status(404).send("no function model");

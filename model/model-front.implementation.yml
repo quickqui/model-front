@@ -1,18 +1,13 @@
 #NOTE 在开发Quick-qui的时候使用。
 implementations:
-  - name: dev-quick-back
+  - name: model-front-raw-back
     extend: "implementations/back-raw"
     env:
-      PORT: 4001
       UML_SERVICE_URL: "http://localhost:1608"
       MODEL_SERVICE_URL: "http://localhost:1112"
   - name: dev-quick-web-front
-    env:
-      PORT: 3001
-      APP_SERVER_URL: http://localhost:4001
     extend: "implementations/web-front-raw"
-    parameters:
-      path: "front3"
+   
   # - name: target-model-server
   #   extend: "implementations/back-raw"
   #   env:
@@ -21,13 +16,9 @@ implementations:
   #   parameters:
   #     path: "model-server"
   - name: model-front-dev-quick-launcher
-    runtime: launcher
+    extend: "implementations/raw-launcher"
     env:
       MODEL_PATH: "../model-front"
-      MODEL_URL: "http://localhost:1111"
     parameters:
       # launch: [dev-quick-back, dev-quick-web-front, target-model-server]
       launch: [dev-quick-back, dev-quick-web-front]
-      type: raw
-      model_server_path: "model-server"
-      quickqui_base: ".."

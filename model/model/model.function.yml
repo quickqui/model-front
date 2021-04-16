@@ -4,6 +4,25 @@ functions:
     extend: functions/show
     parameters:
       id: default
+  - name: ModelUnitList
+    resource: ModelUnit
+    extend: functions/list
+    links:
+      - label: show
+        type: entity
+        page: ModelUnitShowPage
+    # query: 
+    #   filters: 
+    #     type: ''
+    #     q: ''
+    parameters:
+      out:
+        selectedChanged: ${info:UnitSelected}
+  - name: ModelUnitShow
+    resource: ModelUnit
+    extend: functions/show
+    parameters:
+      id: ${info:UnitSelected/id}
   - name: ModelLogsList
     resource: Log
     extend: functions/list

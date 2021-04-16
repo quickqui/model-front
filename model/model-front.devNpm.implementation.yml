@@ -1,0 +1,5 @@
+implementations:
+  - name: model-front-dev-npm-launcher
+    extend: "implementations/devNpm-launcher"
+    parameters:
+      launch: ["npm-back", "npm-web-front"]

@@ -1,0 +1,5 @@
+implementations:
+  - name: model-front-flat-npm-launcher
+    extend: "implementations/flatNpm-launcher"
+    parameters:
+      launch: ["npm-back", "npm-web-front"]

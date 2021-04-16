@@ -7,10 +7,12 @@
     "lib": ["esnext", "dom"],
     "noImplicitAny": false,
     "moduleResolution": "node",
-    "module": "CommonJS",
+    "module": "es6",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "jsx": "preserve",
     "allowJs": true
-  }
+  },
+  "includes":["src/**/*"],
+  "exclude": ["./*.js"]
 }

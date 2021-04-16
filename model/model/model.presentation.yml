@@ -9,3 +9,11 @@ presentations:
     propertyRules:
       - property: json
         rules: ["resolve:view/JsonField"]
+  - name: ModelUnitShow
+    propertyRules:
+      - property: json
+        rules: ["resolve:view/JsonField"]
+  - name: ModelUnitList
+    propertyRules:
+      - property: json
+        rules: [hidden]
